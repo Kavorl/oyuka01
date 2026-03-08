@@ -253,6 +253,7 @@ s.style.top=Math.random()*100+"vh"
 document.body.appendChild(s)
 }
 
+```javascript
 /* sakura physics */
 
 function createSakura(){
@@ -265,10 +266,10 @@ let x=Math.random()*window.innerWidth
 let y=-20
 
 let vy=1+Math.random()*1.5
-let vx=(Math.random()-.5)*1.4
+let vx=(Math.random()-0.5)*1.4
 
 let rot=Math.random()*360
-let rotSpeed=(Math.random()-.5)*2
+let rotSpeed=(Math.random()-0.5)*2
 
 document.body.appendChild(el)
 
@@ -280,9 +281,51 @@ y+=vy
 x+=vx
 
 rot+=rotSpeed
-vx+=(Math.random()-.5)*.05
+vx+=(Math.random()-0.5)*0.05
 
-el.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg)`
+el.style.left=x+"px"
+el.style.top=y+"px"
+el.style.transform="rotate("+rot+"deg)"
+
+/* захианы байрлал */
+
+let rect=letter.getBoundingClientRect()
+
+/* захиан дээр буух шалгалт */
+
+if(
+y >= rect.top-10 &&
+x >= rect.left &&
+x <= rect.right
+){
+
+el.style.top=(rect.top-8)+"px"
+
+/* эндээс цааш хөдөлгөхгүй → дээр нь тогтоно */
+return
+
+}
+
+/* дэлгэцнээс доош гарвал устгана */
+
+if(y < window.innerHeight+40){
+
+requestAnimationFrame(animate)
+
+}else{
+
+el.remove()
+
+}
+
+}
+
+animate()
+
+}
+
+setInterval(createSakura,300)
+```
 
 /* check landing on letter */
 
@@ -329,4 +372,5 @@ allow="autoplay"></iframe>
 
 </body>
 </html>
+
 
