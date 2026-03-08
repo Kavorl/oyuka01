@@ -6,147 +6,241 @@
 <title>Захиа</title>
 
 <style>
+
 body{
-  margin:0;
-  height:100vh;
-  overflow:hidden;
-  background:#000;
-  font-family:Georgia,serif;
+margin:0;
+height:100vh;
+overflow:hidden;
+background:#000;
+font-family:Georgia,serif;
 }
 
 /* background */
+
 .bg{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:url("background.png") center/cover no-repeat;
+position:absolute;
+width:100%;
+height:100%;
+background:url("background.png") center/cover no-repeat;
+z-index:0;
 }
 
 /* stars */
+
 .star{
-  position:absolute;
-  width:4px;
-  height:4px;
-  background:white;
-  border-radius:50%;
-  box-shadow:0 0 10px white,0 0 20px white;
-  animation:twinkle 1.5s infinite;
-}
-@keyframes twinkle{
-0%{opacity:.2}50%{opacity:1}100%{opacity:.2}
+position:absolute;
+width:4px;
+height:4px;
+background:white;
+border-radius:50%;
+box-shadow:0 0 10px white,0 0 20px white;
+animation:twinkle 2s infinite;
 }
 
-/* envelope scene */
-.scene{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  position:relative;
-  z-index:3;
+@keyframes twinkle{
+0%{opacity:.2}
+50%{opacity:1}
+100%{opacity:.2}
 }
+
+/* scene */
+
+.scene{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+position:relative;
+z-index:3;
+}
+
+/* envelope */
 
 .envelope{
-  width:420px;
-  height:260px;
-  position:relative;
+width:420px;
+height:260px;
+position:relative;
+perspective:1000px;
 }
 
-/* envelope base */
+/* base */
+
 .base{
-  width:100%;
-  height:100%;
-  background:white;
-  border-radius:14px;
-  border:6px solid;
-  border-image:linear-gradient(45deg,#ffb6d9,#ffd6ec,#b7e2ff,#ffd6ec)1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  z-index:1;
+width:100%;
+height:100%;
+background:white;
+border-radius:14px;
+
+border:6px solid;
+border-image:linear-gradient(
+45deg,
+#ffb6d9,
+#ffd6ec,
+#b7e2ff,
+#ffd6ec
+)1;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:22px;
 }
 
 /* flap */
+
 .flap{
-  position:absolute;
-  width:0;
-  height:0;
-  border-left:210px solid transparent;
-  border-right:210px solid transparent;
-  border-top:150px solid white;
-  top:0;
-  transform-origin:top;
-  transition:1s;
-  z-index:2;
+position:absolute;
+
+width:0;
+height:0;
+
+border-left:210px solid transparent;
+border-right:210px solid transparent;
+border-top:150px solid white;
+
+top:0;
+
+transform-origin:top;
+transition:1.5s;
+
+z-index:2;
 }
 
 /* seal */
+
 .seal{
-  position:absolute;
-  width:60px;
-  height:60px;
-  background:#c41d1d;
-  border-radius:50%;
-  top:95px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-size:22px;
-  cursor:pointer;
-  box-shadow:0 0 12px black;
-  z-index:4;
+position:absolute;
+
+width:70px;
+height:70px;
+
+background:#c41d1d;
+
+border-radius:50%;
+
+top:90px;
+left:50%;
+transform:translateX(-50%);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:white;
+font-size:26px;
+
+cursor:pointer;
+
+box-shadow:0 0 15px black;
+z-index:4;
+
+transition:0.6s;
+}
+
+/* wax melt */
+
+.melt{
+animation:melt 1s forwards;
+}
+
+@keyframes melt{
+0%{transform:translateX(-50%) scale(1)}
+100%{
+transform:translateX(-50%) scale(0.2);
+opacity:0;
+}
 }
 
 /* letter */
+
 .letter{
-  position:absolute;
-  width:420px;
-  max-height:60vh;
-  overflow:auto;
-  background:#eaf6ff; /* бүдэг цэнхэр */
-  color:black;
-  padding:30px;
-  border-radius:10px;
-  box-shadow:0 20px 40px rgba(0,0,0,.6);
-  transform-origin:top;
-  transform:scaleY(0);
-  opacity:0;
-  transition:1s;
-  z-index:3;
+position:absolute;
+
+width:420px;
+
+background:#eaf6ff;
+color:black;
+
+padding:30px;
+
+border-radius:10px;
+
+box-shadow:0 20px 40px rgba(0,0,0,.6);
+
+transform-origin:top;
+transform:scaleY(0);
+
+opacity:0;
+
+transition:1s;
+
+z-index:3;
 }
+
+/* envelope open */
 
 .open .flap{
-  transform:rotateX(-180deg);
+transform:rotateX(-180deg);
 }
 
-.open .letter{
-  transform:translateY(-220px) scaleY(1);
-  opacity:1;
+/* letter cinematic */
+
+.showLetter{
+animation:letterRise 2s forwards;
+}
+
+@keyframes letterRise{
+
+0%{
+transform:translateY(0) scaleY(0);
+opacity:0;
+}
+
+60%{
+transform:translateY(-260px) scaleY(0.4);
+opacity:1;
+}
+
+100%{
+transform:translateY(-260px) scaleY(1);
+opacity:1;
+}
+
 }
 
 /* sakura */
+
 .sakura{
-  position:absolute;
-  font-size:18px;
-  pointer-events:none;
-  z-index:5;
+position:absolute;
+font-size:18px;
+pointer-events:none;
+z-index:5;
 }
+
 </style>
 </head>
 
 <body>
+
 <div class="bg"></div>
 
 <div class="scene">
-  <div class="envelope" id="env">
-    <div class="flap"></div>
-    <div class="base">Оюунтүлхүүрт 💌</div>
-    <div class="seal" onclick="openEnvelope()">❤</div>
-    <div class="letter" id="letter">
+
+<div class="envelope" id="env">
+
+<div class="flap"></div>
+
+<div class="base">
+Оюунтүлхүүрт 💌
+</div>
+
+<div class="seal" id="seal">
+❤
+</div>
+
+<div class="letter" id="letter">
+
 Сайн уу 🌸
 
 Энэ захиаг чамд зориулж бичлээ.
@@ -154,8 +248,8 @@ body{
 Чи миний хувьд
 маш онцгой хүн.
 
-Чиний инээмсэглэл,
-чиний зан,
+Чиний инээмсэглэл
+чиний зан
 чиний дулаан мэдрэмж
 надад маш үнэ цэнтэй.
 
@@ -164,83 +258,131 @@ body{
 гомдоосон бол
 үнэхээр уучлаарай.
 
-Чамд аз жаргал,
+Чамд аз жаргал
 инээмсэглэл
 бас
 хамгийн сайхан бүхнийг
 хүсье 🌸
-    </div>
-  </div>
+
 </div>
 
+</div>
+</div>
+
+
 <script>
+
 /* stars */
+
 for(let i=0;i<120;i++){
-  let s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=Math.random()*100+"vh";
-  document.body.appendChild(s);
+
+let s=document.createElement("div");
+
+s.className="star";
+
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+
+document.body.appendChild(s);
+
 }
 
-/* sakura physics */
+
+/* sakura physics with ground pile */
+
+let ground = window.innerHeight - 20;
+
 function createSakura(){
-  let el=document.createElement("div");
-  el.className="sakura";
-  el.innerHTML="🌸";
 
-  let x=Math.random()*window.innerWidth;
-  let y=-20;
-  let vy=1+Math.random()*1.5;
-  let vx=(Math.random()-.5)*1.4;
-  let rot=Math.random()*360;
-  let rotSpeed=(Math.random()-.5)*2;
+let el=document.createElement("div");
 
-  document.body.appendChild(el);
-  const letter=document.getElementById("letter");
+el.className="sakura";
 
-  function animate(){
-    y+=vy;
-    x+=vx;
-    rot+=rotSpeed;
-    vx+=(Math.random()-.5)*0.05;
+el.innerHTML="🌸";
 
-    el.style.left=x+"px";
-    el.style.top=y+"px";
-    el.style.transform="rotate("+rot+"deg)";
+let x=Math.random()*window.innerWidth;
+let y=-20;
 
-    let rect=letter.getBoundingClientRect();
+let vy=1+Math.random()*1.5;
+let vx=(Math.random()-.5)*1.5;
 
-    if(y >= rect.top-10 && x >= rect.left && x <= rect.right){
-      el.style.top=(rect.top-8)+"px";
-      return; // letter дээр тогтоно
-    }
+let rot=Math.random()*360;
+let rotSpeed=(Math.random()-.5)*3;
 
-    if(y < window.innerHeight+40){
-      requestAnimationFrame(animate);
-    }else{
-      el.remove();
-    }
-  }
+document.body.appendChild(el);
 
-  animate();
+function animate(){
+
+y+=vy;
+x+=vx;
+
+rot+=rotSpeed;
+
+vx+=(Math.random()-.5)*0.03;
+
+el.style.left=x+"px";
+el.style.top=y+"px";
+el.style.transform="rotate("+rot+"deg)";
+
+if(y >= ground){
+
+el.style.top=ground+"px";
+
+return;
+
 }
 
-setInterval(createSakura,300);
+requestAnimationFrame(animate);
 
-/* envelope open */
-function openEnvelope(){
-  document.getElementById("env").classList.add("open");
+}
+
+animate();
+
+}
+
+setInterval(createSakura,250);
+
+
+/* envelope open cinematic */
+
+const seal=document.getElementById("seal");
+
+seal.onclick=()=>{
+
+seal.classList.add("melt");
+
+setTimeout(()=>{
+
+document.getElementById("env").classList.add("open");
+
+let letter=document.getElementById("letter");
+
+setTimeout(()=>{
+
+letter.classList.add("showLetter");
+
+},800);
+
+},900);
+
 }
 
 </script>
 
-<!-- YouTube дуу -->
-<iframe width="200" height="113"
-style="position:fixed;bottom:10px;right:10px;border:0;border-radius:6px"
-src="https://www.youtube.com/embed/4WwrTlK8VlY?autoplay=1&loop=1&playlist=4WwrTlK8VlY"
-allow="autoplay"></iframe>
+
+<!-- hidden music -->
+
+<iframe
+src="https://www.youtube.com/embed/xCcQ4BxYq1U?autoplay=1&loop=1&playlist=xCcQ4BxYq1U&controls=0&modestbranding=1&playsinline=1"
+allow="autoplay"
+style="
+position:fixed;
+width:1px;
+height:1px;
+opacity:0;
+border:0;
+pointer-events:none;">
+</iframe>
 
 </body>
 </html>
-
