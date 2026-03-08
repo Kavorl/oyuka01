@@ -6,6 +6,7 @@
 <title>💌</title>
 
 <style>
+
 body{
 margin:0;
 height:100vh;
@@ -48,6 +49,7 @@ position:absolute;
 font-size:20px;
 pointer-events:none;
 }
+
 </style>
 </head>
 
@@ -58,7 +60,7 @@ pointer-events:none;
 <button class="startBtn" onclick="startSite()">🐰 Намайг дар 🐰</button>
 
 <audio id="music" loop>
-<source src="Nightcore - 夢と葉桜  Yume To Hazakura ヲタみん  Wotamin Cover Original song by_ 青木月光  Aoki Gekkoh.mp3" type="audio/mpeg">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -102,7 +104,6 @@ el.remove();
 }
 
 animate();
-
 }
 
 setInterval(createSakura,300);
@@ -110,7 +111,15 @@ setInterval(createSakura,300);
 
 function startSite(){
 
-document.getElementById("music").play();
+let music=document.getElementById("music");
+music.play();
+
+/* дууг дараагийн page дээр үргэлжлүүлэх */
+localStorage.setItem("musicTime", music.currentTime);
+
+setInterval(()=>{
+localStorage.setItem("musicTime", music.currentTime);
+},500);
 
 document.body.style.transition="opacity 1s";
 document.body.style.opacity="0";
