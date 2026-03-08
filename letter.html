@@ -36,8 +36,9 @@ height:100vh;
 /* envelope */
 
 .envelope{
-width:420px;
-height:260px;
+width:90vw;
+max-width:420px;
+height:200px;
 position:relative;
 }
 
@@ -66,9 +67,9 @@ position:absolute;
 width:0;
 height:0;
 
-border-left:210px solid transparent;
-border-right:210px solid transparent;
-border-top:150px solid white;
+border-left:45vw solid transparent;
+border-right:45vw solid transparent;
+border-top:120px solid white;
 
 top:0;
 
@@ -82,8 +83,8 @@ transition:1.5s;
 
 position:absolute;
 
-width:70px;
-height:70px;
+width:60px;
+height:60px;
 
 background:#b30000;
 
@@ -92,7 +93,7 @@ clip-path:polygon(
 50% 70%,21% 91%,32% 57%,2% 35%,39% 35%
 );
 
-top:90px;
+top:70px;
 left:50%;
 transform:translateX(-50%);
 
@@ -114,13 +115,15 @@ box-shadow:0 0 15px #ff6b6b;
 .letter{
 
 position:absolute;
-width:420px;
+
+width:90vw;
+max-width:360px;
 
 background:#eaf6ff;
 
-padding:30px;
+padding:20px;
 
-border-radius:8px;
+border-radius:10px;
 
 box-shadow:0 20px 40px rgba(0,0,0,.6);
 
@@ -128,6 +131,9 @@ transform-origin:top;
 transform:scaleY(0);
 
 opacity:0;
+
+font-size:16px;
+line-height:1.6;
 
 }
 
@@ -147,10 +153,18 @@ opacity:0;
 }
 
 100%{
-transform:translateY(-250px) scaleY(1);
+transform:translateY(-220px) scaleY(1);
 opacity:1;
 }
 
+}
+
+/* sakura */
+
+.sakura{
+position:absolute;
+font-size:20px;
+pointer-events:none;
 }
 
 </style>
@@ -162,7 +176,7 @@ opacity:1;
 
 <div class="scene">
 
-<div class="envelope" id="env">
+<div class="envelope">
 
 <div class="flap"></div>
 
@@ -171,23 +185,65 @@ opacity:1;
 <div class="seal" onclick="openEnvelope()">★</div>
 
 <div class="letter" id="letter">
-
 <span id="text"></span>
-
 </div>
 
 </div>
 </div>
-
-<!-- music continue -->
-
-<iframe
-src="https://www.youtube.com/embed/xCcQ4BxYq1U?autoplay=1&loop=1&playlist=xCcQ4BxYq1U&controls=0&modestbranding=1&playsinline=1"
-allow="autoplay"
-style="position:fixed;width:1px;height:1px;opacity:0;border:0;">
-</iframe>
 
 <script>
+
+/* sakura realistic physics */
+
+function createSakura(){
+
+let el=document.createElement("div");
+el.className="sakura";
+el.innerHTML="🌸";
+
+let x=Math.random()*window.innerWidth;
+let y=-20;
+
+let vx=(Math.random()-0.5)*2;
+let vy=1+Math.random()*1.5;
+
+let rot=Math.random()*360;
+let rotSpeed=(Math.random()-0.5)*4;
+
+document.body.appendChild(el);
+
+function animate(){
+
+y+=vy;
+x+=vx;
+rot+=rotSpeed;
+
+/* wind */
+
+vx+=(Math.random()-0.5)*0.05;
+
+el.style.left=x+"px";
+el.style.top=y+"px";
+el.style.transform="rotate("+rot+"deg)";
+
+if(y<window.innerHeight+40){
+
+requestAnimationFrame(animate);
+
+}else{
+
+el.remove();
+
+}
+
+}
+
+animate();
+
+}
+
+setInterval(createSakura,280);
+
 
 /* open envelope */
 
@@ -213,21 +269,29 @@ typing();
 const message=`Юуны өмнө чамд 3 сарын 8-ны баярын мэнд хүргэе.
 
 Сүүлд би чамд муухай аашилж,
-чамайг гомдоосон.
+чамайг гомдоосон байж магадгүй.
 Тэр бүхний төлөө үнэхээр уучлаарай.
+
 Чамайг гомдоох гэж бодоогүй юм шүү
+
 Учир нь чи миний хувьд
 маш үнэ цэнэтэй хүн.
+
 Чиний инээмсэглэл
 чиний зан ааш
 чиний надад өгдөг тэр дулаан мэдрэмж
+
 энэ бүхэн миний хувьд маш чухал.
+
 Заримдаа хүн
 өөрийн хамгийн дотны ойр хүндээ л
 тэнэг зан гаргачихдаг юм шиг байна.
+
 Гэхдээ үнэндээ
 би чамайг гомдоохыг огт хүсээгүй.
+
 Чи миний амьдралд орж ирсэнд баярладаг аа.
+
 Чамд дахин нэг удаа
 3 сарын 8-ны баярын мэнд хүргэе 🌸`;
 
