@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оюунтүлхүүрт</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+font-family:Georgia, serif;
+overflow:hidden;
+background:#000;
+}
+
+/* background image */
+.background{
+position:absolute;
+width:100%;
+height:100%;
+background:url("background.png") center/cover no-repeat;
+z-index:0;
+}
+
+/* stars */
+
+.star{
+position:absolute;
+width:4px;
+height:4px;
+background:white;
+border-radius:50%;
+opacity:0.9;
+box-shadow:0 0 10px white,0 0 20px white;
+animation:twinkle 1.5s infinite;
+}
+
+@keyframes twinkle{
+0%{opacity:0.2;transform:scale(0.6)}
+50%{opacity:1;transform:scale(1.5)}
+100%{opacity:0.2;transform:scale(0.6)}
+}
+
+/* sakura */
+
+.sakura{
+position:absolute;
+font-size:18px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh) rotate(0);opacity:0}
+80%{opacity:1}
+100%{transform:translateY(60vh) rotate(360deg)}
+}
+
+/* center scene */
+
+.scene{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+position:relative;
+z-index:3;
+}
+
+/* envelope */
+
+.envelope{
+width:420px;
+height:260px;
+position:relative;
+}
+
+/* envelope base */
+
+.base{
+position:absolute;
+width:100%;
+height:100%;
+background:white;
+border-radius:12px;
+box-shadow:0 12px 25px rgba(0,0,0,0.5);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:22px;
+color:black;
+
+/* flower border */
+
+border:6px solid transparent;
+background-image:
+linear-gradient(white,white),
+url("https://i.imgur.com/7s4YF9B.png");
+background-origin:border-box;
+background-clip:content-box,border-box;
+}
+
+/* triangle flap */
+
+.flap{
+position:absolute;
+width:0;
+height:0;
+border-left:210px solid transparent;
+border-right:210px solid transparent;
+border-top:150px solid white;
+top:0;
+left:0;
+
+transform-origin:top;
+transition:1s;
+}
+
+/* wax seal */
+
+.seal{
+position:absolute;
+width:65px;
+height:65px;
+background:#c91d1d;
+border-radius:50%;
+
+top:95px;
+left:50%;
+transform:translateX(-50%);
+
+box-shadow:0 6px 12px rgba(0,0,0,0.4);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+color:white;
+font-size:22px;
+font-weight:bold;
+
+cursor:pointer;
+}
+
+/* letter */
+
+.letter{
+position:absolute;
+
+width:90%;
+max-width:420px;
+
+max-height:60vh;
+overflow-y:auto;
+
+background:white;
+color:black;
+
+padding:30px;
+
+border-radius:10px;
+
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
+
+transform-origin:top;
+transform:scaleY(0);
+opacity:0;
+
+transition:1s ease;
+
+white-space:pre-line;
+text-align:center;
+}
+
+/* open states */
+
+.open .flap{
+transform:rotateX(-180deg);
+}
+
+.open .letter{
+transform:translateY(-220px) scaleY(1);
+opacity:1;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="scene">
+
+<div class="envelope" id="env">
+
+<div class="flap"></div>
+
+<div class="base">
+Оюунтүлхүүрт 💌
+</div>
+
+<div class="seal" onclick="openEnvelope()">❤</div>
+
+<div class="letter">
+<div id="typing"></div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* stars */
+
+for(let i=0;i<120;i++){
+let star=document.createElement("div")
+star.className="star"
+star.style.left=Math.random()*100+"vw"
+star.style.top=Math.random()*100+"vh"
+document.body.appendChild(star)
+}
+
+/* sakura */
+
+function sakura(){
+
+let el=document.createElement("div")
+
+el.className="sakura"
+el.innerHTML="🌸"
+
+el.style.left=Math.random()*100+"vw"
+el.style.top="-5vh"
+
+el.style.animationDuration=5+Math.random()*5+"s"
+
+document.body.appendChild(el)
+
+setTimeout(()=>{
+el.style.animation="none"
+el.style.transform="translateY(60vh)"
+},6000)
+
+}
+
+setInterval(sakura,300)
+
+
+/* open envelope */
+
+let opened=false
+
+function openEnvelope(){
+
+const env=document.getElementById("env")
+
+env.classList.add("open")
+
+if(!opened){
+startTyping()
+opened=true
+}
+
+}
+
+
+/* typing text */
+
+const message=`Сайн уу Оюунтүлхүүрээ 🌸
+
+Юуны өмнө
+3-р сарын 8-ны баярын мэнд хүргэе.
+
+Сүүлийн үед
+би чамд муухай аашилж
+чамайг гомдоосон байж магадгүй.
+
+Тэр бүхний төлөө
+үнэхээр уучлаарай.
+
+Чиний инээмсэглэл
+чиний зан
+чиний надад өгдөг дулаан мэдрэмж
+надад маш үнэ цэнтэй.
+
+Заримдаа хүн
+хамгийн хайртай хүнтэйгээ
+тэнэг зан гаргачихдаг юм шиг.
+
+Гэхдээ би
+чамайг гомдоохыг
+огт хүсээгүй.
+
+Хэрвээ чи намайг уучилж чадвал
+би илүү сайн хүн байж
+чамайг илүү их баярлуулахыг хүсэж байна.
+
+Чи миний амьдралд байгаад
+баярлалаа.
+
+Баярын мэнд хүргэе 🌸`
+
+let i=0
+
+function startTyping(){
+
+let speed=40
+
+function type(){
+
+if(i<message.length){
+
+document.getElementById("typing").innerHTML+=message.charAt(i)
+
+i++
+
+setTimeout(type,speed)
+
+}
+
+}
+
+type()
+
+}
+
+</script>
+
+<!-- youtube music -->
+
+<iframe width="200" height="113"
+style="position:fixed;bottom:10px;right:10px;border:0;border-radius:6px;z-index:10"
+src="https://www.youtube.com/embed/4WwrTlK8VlY?autoplay=1&loop=1&playlist=4WwrTlK8VlY"
+allow="autoplay">
+</iframe>
+
+</body>
+</html>
+```
