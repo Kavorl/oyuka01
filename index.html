@@ -1,39 +1,29 @@
-
 <!DOCTYPE html>
 <html lang="mn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Page 1 - Оюунтүлхүүрт</title>
+<title>For Oyuuntulhuur</title>
 
 <style>
 
 body{
 margin:0;
 height:100vh;
-font-family:sans-serif;
 overflow:hidden;
+font-family:sans-serif;
 background:#000;
 position:relative;
 }
 
 /* background */
 
-.background-image{
+.bg{
 position:absolute;
-top:0;
-left:0;
 width:100%;
 height:100%;
-background:url("background.png") center/cover no-repeat;
+background:url("background.jpg") center/cover no-repeat;
 z-index:0;
-opacity:0;
-animation:fadeIn 2s forwards;
-}
-
-@keyframes fadeIn{
-0%{opacity:0}
-100%{opacity:1}
 }
 
 /* stars */
@@ -44,16 +34,14 @@ width:4px;
 height:4px;
 background:white;
 border-radius:50%;
-opacity:0.9;
-box-shadow:0 0 8px white,0 0 16px white;
-animation:twinkle 1.5s infinite;
-z-index:1;
+box-shadow:0 0 8px white,0 0 20px white;
+animation:twinkle 1.6s infinite;
 }
 
 @keyframes twinkle{
-0%{opacity:0.2;transform:scale(0.7)}
-50%{opacity:1;transform:scale(1.4)}
-100%{opacity:0.2;transform:scale(0.7)}
+0%{opacity:.2;transform:scale(.6)}
+50%{opacity:1;transform:scale(1.5)}
+100%{opacity:.2;transform:scale(.6)}
 }
 
 /* sakura */
@@ -67,37 +55,51 @@ z-index:2;
 
 /* button */
 
-.next-button{
+.open-btn{
+
 position:absolute;
 top:50%;
 left:50%;
+
 transform:translate(-50%,-50%);
-padding:18px 40px;
-font-size:20px;
-color:white;
-background:rgba(255,120,170,0.85);
+
+padding:20px 48px;
+
+font-size:22px;
+
 border:none;
-border-radius:14px;
+
+border-radius:16px;
+
 cursor:pointer;
-z-index:3;
-box-shadow:0 0 10px rgba(255,120,170,0.8),
-0 0 25px rgba(255,120,170,0.6),
-0 0 40px rgba(255,120,170,0.4);
+
+color:white;
+
+background:linear-gradient(45deg,#ff6fa5,#ff9ec2);
+
+box-shadow:
+0 0 12px #ff6fa5,
+0 0 25px #ff6fa5,
+0 0 45px #ff6fa5;
+
 animation:pulse 2s infinite;
-transition:0.3s;
+
+z-index:3;
+
 }
 
 @keyframes pulse{
-0%{box-shadow:0 0 8px rgba(255,120,170,0.6),0 0 20px rgba(255,120,170,0.4);}
-50%{box-shadow:0 0 18px rgba(255,120,170,1),0 0 40px rgba(255,120,170,0.8);}
-100%{box-shadow:0 0 8px rgba(255,120,170,0.6),0 0 20px rgba(255,120,170,0.4);}
+
+0%{box-shadow:0 0 10px #ff6fa5}
+50%{box-shadow:0 0 35px #ff6fa5}
+100%{box-shadow:0 0 10px #ff6fa5}
+
 }
 
 /* sparkle */
 
 .sparkle{
 position:absolute;
-color:white;
 font-size:14px;
 pointer-events:none;
 animation:spark 1s forwards;
@@ -105,18 +107,18 @@ animation:spark 1s forwards;
 
 @keyframes spark{
 0%{opacity:1;transform:scale(1)}
-100%{opacity:0;transform:translateY(-40px) scale(0.3)}
+100%{opacity:0;transform:translateY(-40px) scale(.2)}
 }
 
-/* zoom transition */
+/* zoom */
 
-.zoom-out{
+.zoom{
 animation:zoom 1s forwards;
 }
 
 @keyframes zoom{
 0%{transform:scale(1)}
-100%{transform:scale(1.6);opacity:0}
+100%{transform:scale(1.7);opacity:0}
 }
 
 </style>
@@ -124,12 +126,10 @@ animation:zoom 1s forwards;
 
 <body>
 
-<div class="background-image"></div>
+<div class="bg"></div>
 
-<button class="next-button"
-onmouseenter="hoverSakura(event)"
-onclick="goLetter(event)">
-→ энийг дар
+<button class="open-btn" onclick="goLetter(event)">
+💌 Захиаг нээх
 </button>
 
 <script>
@@ -137,14 +137,14 @@ onclick="goLetter(event)">
 /* stars */
 
 for(let i=0;i<120;i++){
-let star=document.createElement("div")
-star.className="star"
-star.style.left=Math.random()*100+"vw"
-star.style.top=Math.random()*100+"vh"
-document.body.appendChild(star)
+let s=document.createElement("div")
+s.className="star"
+s.style.left=Math.random()*100+"vw"
+s.style.top=Math.random()*100+"vh"
+document.body.appendChild(s)
 }
 
-/* sakura physics (wind drift) */
+/* sakura physics */
 
 function createSakura(){
 
@@ -155,32 +155,33 @@ el.innerHTML="🌸"
 let x=Math.random()*window.innerWidth
 let y=-20
 
-let speedY=1+Math.random()*1.5
-let wind=(Math.random()-0.5)*1.5
-let rotation=Math.random()*360
-let rotationSpeed=(Math.random()-0.5)*2
+let vy=1+Math.random()*1.5
+let vx=(Math.random()-0.5)*1.5
 
-el.style.left=x+"px"
-el.style.top=y+"px"
+let rot=Math.random()*360
+let rotSpeed=(Math.random()-0.5)*2
 
 document.body.appendChild(el)
 
 function animate(){
 
-y+=speedY
-x+=wind
+y+=vy
+x+=vx
 
-rotation+=rotationSpeed
+rot+=rotSpeed
 
-/* салхины хүч бага зэрэг өөрчлөгдөнө */
-wind+= (Math.random()-0.5)*0.05
+vx+=(Math.random()-.5)*.05
 
-el.style.transform=`translate(${x}px,${y}px) rotate(${rotation}deg)`
+el.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg)`
 
 if(y<window.innerHeight+40){
+
 requestAnimationFrame(animate)
+
 }else{
+
 el.remove()
+
 }
 
 }
@@ -189,47 +190,22 @@ animate()
 
 }
 
-/* sakura spawn */
-
 setInterval(createSakura,300)
 
-/* hover sakura */
-
-function hoverSakura(e){
-
-for(let i=0;i<6;i++){
-
-let el=document.createElement("div")
-
-el.className="sakura"
-el.innerHTML="🌸"
-
-el.style.left=(e.clientX + (Math.random()*60-30))+"px"
-el.style.top=(e.clientY + (Math.random()*60-30))+"px"
-
-document.body.appendChild(el)
-
-setTimeout(()=>el.remove(),3000)
-
-}
-
-}
-
-/* sparkle burst */
+/* sparkle */
 
 function sparkle(x,y){
 
 for(let i=0;i<20;i++){
 
 let sp=document.createElement("div")
-
 sp.className="sparkle"
 sp.innerHTML="✨"
 
 sp.style.left=x+"px"
 sp.style.top=y+"px"
 
-sp.style.transform="translate("+(Math.random()*120-60)+"px,"+(Math.random()*120-60)+"px)"
+sp.style.transform=`translate(${Math.random()*120-60}px,${Math.random()*120-60}px)`
 
 document.body.appendChild(sp)
 
@@ -239,13 +215,11 @@ setTimeout(()=>sp.remove(),1000)
 
 }
 
-/* page change */
-
 function goLetter(e){
 
 sparkle(e.clientX,e.clientY)
 
-document.body.classList.add("zoom-out")
+document.body.classList.add("zoom")
 
 setTimeout(()=>{
 window.location.href="letter.html"
