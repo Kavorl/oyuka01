@@ -29,11 +29,11 @@ z-index:0;
 
 .star{
 position:absolute;
-width:4px;
-height:4px;
+width:3px;
+height:3px;
 background:white;
 border-radius:50%;
-box-shadow:0 0 10px white,0 0 20px white;
+box-shadow:0 0 8px white;
 animation:twinkle 2s infinite;
 }
 
@@ -51,7 +51,7 @@ justify-content:center;
 align-items:center;
 height:100vh;
 position:relative;
-z-index:3;
+z-index:2;
 }
 
 /* envelope */
@@ -68,23 +68,24 @@ perspective:1000px;
 .base{
 width:100%;
 height:100%;
-background:white;
+
+background:linear-gradient(#ffffff,#f7f7f7);
+
 border-radius:14px;
 
 border:6px solid;
-border-image:linear-gradient(
-45deg,
-#ffb6d9,
-#ffd6ec,
-#b7e2ff,
-#ffd6ec
-)1;
+border-image:linear-gradient(45deg,#ffd6ec,#b7e2ff,#ffd6ec)1;
 
 display:flex;
 align-items:center;
 justify-content:center;
-
 font-size:22px;
+
+box-shadow:
+0 15px 30px rgba(0,0,0,.4),
+inset 0 3px 8px rgba(255,255,255,.7),
+inset 0 -5px 10px rgba(0,0,0,.08);
+
 }
 
 /* flap */
@@ -103,11 +104,10 @@ top:0;
 
 transform-origin:top;
 transition:1.5s;
-
 z-index:2;
 }
 
-/* seal */
+/* ⭐ star seal */
 
 .seal{
 position:absolute;
@@ -115,9 +115,20 @@ position:absolute;
 width:70px;
 height:70px;
 
-background:#c41d1d;
+background:#b30000;
 
-border-radius:50%;
+clip-path:polygon(
+50% 0%,
+61% 35%,
+98% 35%,
+68% 57%,
+79% 91%,
+50% 70%,
+21% 91%,
+32% 57%,
+2% 35%,
+39% 35%
+);
 
 top:90px;
 left:50%;
@@ -128,14 +139,63 @@ align-items:center;
 justify-content:center;
 
 color:white;
-font-size:26px;
+font-size:22px;
 
 cursor:pointer;
 
-box-shadow:0 0 15px black;
-z-index:4;
+box-shadow:
+0 0 10px #ff6b6b,
+0 0 20px rgba(0,0,0,.6);
 
-transition:0.6s;
+z-index:4;
+}
+
+/* particle */
+
+.particle{
+position:absolute;
+color:#fff;
+font-size:10px;
+pointer-events:none;
+animation:particleFloat 2s linear forwards;
+}
+
+@keyframes particleFloat{
+
+0%{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+100%{
+opacity:0;
+transform:translateY(-60px) scale(0);
+}
+
+}
+
+/* sparkle burst */
+
+.sparkle{
+position:absolute;
+color:#fff;
+font-size:14px;
+pointer-events:none;
+animation:spark 1s forwards;
+}
+
+@keyframes spark{
+
+0%{
+transform:scale(1);
+opacity:1;
+}
+
+100%{
+transform:translateY(-40px) scale(0);
+opacity:0;
+}
+
 }
 
 /* wax melt */
@@ -145,46 +205,49 @@ animation:melt 1s forwards;
 }
 
 @keyframes melt{
-0%{transform:translateX(-50%) scale(1)}
+
+0%{
+transform:translateX(-50%) scale(1);
+}
+
 100%{
 transform:translateX(-50%) scale(0.2);
 opacity:0;
 }
+
 }
 
-/* letter */
+/* 📜 real paper */
 
 .letter{
-position:absolute;
 
+position:absolute;
 width:420px;
 
-background:#eaf6ff;
+background:
+url("https://www.transparenttextures.com/patterns/paper-fibers.png"),
+#eaf6ff;
+
 color:black;
 
-padding:30px;
+padding:32px;
 
-border-radius:10px;
+border-radius:8px;
 
-box-shadow:0 20px 40px rgba(0,0,0,.6);
+box-shadow:
+0 30px 50px rgba(0,0,0,.6),
+inset 0 2px 6px rgba(255,255,255,.7),
+inset 0 -2px 6px rgba(0,0,0,.1);
 
 transform-origin:top;
 transform:scaleY(0);
 
 opacity:0;
 
-transition:1s;
-
 z-index:3;
 }
 
-/* envelope open */
-
-.open .flap{
-transform:rotateX(-180deg);
-}
-
-/* letter cinematic */
+/* letter rise */
 
 .showLetter{
 animation:letterRise 2s forwards;
@@ -198,7 +261,7 @@ opacity:0;
 }
 
 60%{
-transform:translateY(-260px) scaleY(0.4);
+transform:translateY(-260px) scaleY(.4);
 opacity:1;
 }
 
@@ -235,35 +298,10 @@ z-index:5;
 Оюунтүлхүүрт 💌
 </div>
 
-<div class="seal" id="seal">
-❤
-</div>
+<div class="seal" id="seal">★</div>
 
 <div class="letter" id="letter">
-
-Сайн уу 🌸
-
-Энэ захиаг чамд зориулж бичлээ.
-
-Чи миний хувьд
-маш онцгой хүн.
-
-Чиний инээмсэглэл
-чиний зан
-чиний дулаан мэдрэмж
-надад маш үнэ цэнтэй.
-
-Хэрвээ би чамайг
-хэзээ нэгэн цагт
-гомдоосон бол
-үнэхээр уучлаарай.
-
-Чамд аз жаргал
-инээмсэглэл
-бас
-хамгийн сайхан бүхнийг
-хүсье 🌸
-
+<span id="text"></span>
 </div>
 
 </div>
@@ -288,16 +326,59 @@ document.body.appendChild(s);
 }
 
 
-/* sakura physics with ground pile */
+/* seal particle glow */
 
-let ground = window.innerHeight - 20;
+function sealParticles(){
+
+const seal=document.getElementById("seal");
+const rect=seal.getBoundingClientRect();
+
+let p=document.createElement("div");
+
+p.className="particle";
+p.innerHTML="✨";
+
+p.style.left=(rect.left+rect.width/2)+"px";
+p.style.top=(rect.top)+"px";
+
+document.body.appendChild(p);
+
+setTimeout(()=>p.remove(),2000);
+
+}
+
+setInterval(sealParticles,300);
+
+
+/* sparkle burst */
+
+function sparkleBurst(x,y){
+
+for(let i=0;i<25;i++){
+
+let sp=document.createElement("div");
+
+sp.className="sparkle";
+sp.innerHTML="✨";
+
+sp.style.left=x+"px";
+sp.style.top=y+"px";
+
+document.body.appendChild(sp);
+
+setTimeout(()=>sp.remove(),1000);
+
+}
+
+}
+
+
+/* sakura physics */
 
 function createSakura(){
 
 let el=document.createElement("div");
-
 el.className="sakura";
-
 el.innerHTML="🌸";
 
 let x=Math.random()*window.innerWidth;
@@ -310,6 +391,8 @@ let rot=Math.random()*360;
 let rotSpeed=(Math.random()-.5)*3;
 
 document.body.appendChild(el);
+
+const letter=document.getElementById("letter");
 
 function animate(){
 
@@ -324,10 +407,24 @@ el.style.left=x+"px";
 el.style.top=y+"px";
 el.style.transform="rotate("+rot+"deg)";
 
-if(y >= ground){
+let rect=letter.getBoundingClientRect();
 
-el.style.top=ground+"px";
+/* land letter */
 
+if(
+y>=rect.top &&
+x>rect.left &&
+x<rect.right
+){
+el.style.top=(rect.top-5)+"px";
+return;
+}
+
+/* land ground */
+
+if(y>=window.innerHeight-10){
+
+el.style.top=(window.innerHeight-10)+"px";
 return;
 
 }
@@ -340,14 +437,16 @@ animate();
 
 }
 
-setInterval(createSakura,250);
+setInterval(createSakura,260);
 
 
-/* envelope open cinematic */
+/* envelope open */
 
 const seal=document.getElementById("seal");
 
-seal.onclick=()=>{
+seal.onclick=(e)=>{
+
+sparkleBurst(e.clientX,e.clientY);
 
 seal.classList.add("melt");
 
@@ -361,9 +460,58 @@ setTimeout(()=>{
 
 letter.classList.add("showLetter");
 
+startTyping();
+
 },800);
 
 },900);
+
+};
+
+
+/* typing animation */
+
+const message=`Сайн уу 🌸
+
+Энэ захиаг чамд зориулж бичлээ.
+
+Чи миний хувьд
+маш онцгой хүн.
+
+Чиний инээмсэглэл
+чиний зан
+чиний дулаан мэдрэмж
+надад маш үнэ цэнтэй.
+
+Хэрвээ би чамайг
+гомдоосон бол
+үнэхээр уучлаарай.
+
+Чамд аз жаргал
+хамгийн сайхан бүхнийг
+хүсье 🌸`;
+
+let i=0;
+
+function startTyping(){
+
+let target=document.getElementById("text");
+
+function type(){
+
+if(i<message.length){
+
+target.innerHTML+=message.charAt(i);
+
+i++;
+
+setTimeout(type,40);
+
+}
+
+}
+
+type();
 
 }
 
@@ -375,14 +523,9 @@ letter.classList.add("showLetter");
 <iframe
 src="https://www.youtube.com/embed/xCcQ4BxYq1U?autoplay=1&loop=1&playlist=xCcQ4BxYq1U&controls=0&modestbranding=1&playsinline=1"
 allow="autoplay"
-style="
-position:fixed;
-width:1px;
-height:1px;
-opacity:0;
-border:0;
-pointer-events:none;">
+style="position:fixed;width:1px;height:1px;opacity:0;border:0;">
 </iframe>
 
 </body>
 </html>
+
