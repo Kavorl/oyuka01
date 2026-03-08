@@ -6,7 +6,6 @@
 <title>💌</title>
 
 <style>
-
 body{
 margin:0;
 height:100vh;
@@ -49,7 +48,6 @@ position:absolute;
 font-size:20px;
 pointer-events:none;
 }
-
 </style>
 </head>
 
@@ -60,73 +58,70 @@ pointer-events:none;
 <button class="startBtn" onclick="startSite()">🐰 Намайг дар 🐰</button>
 
 <audio id="music" loop>
-<source src="Nightcore - 夢と葉桜  Yume To Hazakura ヲタみん  Wotamin Cover Original song by_ 青木月光  Aoki Gekkoh.mp3" type="audio/mpeg">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
+const music = document.getElementById("music")
+
 function createSakura(){
 
-let el=document.createElement("div");
-el.className="sakura";
-el.innerHTML="🌸";
+let el=document.createElement("div")
+el.className="sakura"
+el.innerHTML="🌸"
 
-let x=Math.random()*window.innerWidth;
-let y=-20;
+let x=Math.random()*window.innerWidth
+let y=-20
 
-let vx=(Math.random()-0.5)*2;
-let vy=1+Math.random()*1.5;
+let vx=(Math.random()-0.5)*2
+let vy=1+Math.random()*1.5
 
-let rot=Math.random()*360;
-let rotSpeed=(Math.random()-0.5)*4;
+let rot=Math.random()*360
+let rotSpeed=(Math.random()-0.5)*4
 
-document.body.appendChild(el);
+document.body.appendChild(el)
 
 function animate(){
 
-y+=vy;
-x+=vx;
-rot+=rotSpeed;
+y+=vy
+x+=vx
+rot+=rotSpeed
 
-vx+=(Math.random()-0.5)*0.05;
+vx+=(Math.random()-0.5)*0.05
 
-el.style.left=x+"px";
-el.style.top=y+"px";
-el.style.transform="rotate("+rot+"deg)";
+el.style.left=x+"px"
+el.style.top=y+"px"
+el.style.transform="rotate("+rot+"deg)"
 
 if(y<window.innerHeight+40){
-requestAnimationFrame(animate);
-}
-else{
-el.remove();
-}
-
+requestAnimationFrame(animate)
+}else{
+el.remove()
 }
 
-animate();
 }
 
-setInterval(createSakura,300);
+animate()
+}
+
+setInterval(createSakura,300)
 
 
 function startSite(){
 
-let music=document.getElementById("music");
-music.play();
-
-/* дууг дараагийн page дээр үргэлжлүүлэх */
-localStorage.setItem("musicTime", music.currentTime);
+music.play()
 
 setInterval(()=>{
-localStorage.setItem("musicTime", music.currentTime);
-},500);
+localStorage.setItem("musicTime", music.currentTime)
+},500)
 
-document.body.style.transition="opacity 1s";
-document.body.style.opacity="0";
+document.body.style.transition="opacity 1s"
+document.body.style.opacity="0"
 
 setTimeout(()=>{
-window.location.href="letter.html";
-},1000);
+window.location.href="letter.html"
+},1000)
 
 }
 
@@ -134,4 +129,3 @@ window.location.href="letter.html";
 
 </body>
 </html>
-
