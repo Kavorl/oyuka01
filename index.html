@@ -4,111 +4,126 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>💌</title>
+
 <style>
 body{
-  margin:0;
-  height:100vh;
-  overflow:hidden;
-  background:black;
-  font-family:sans-serif;
+margin:0;
+height:100vh;
+overflow:hidden;
+background:black;
+font-family:sans-serif;
 }
 
 /* background */
 .bg{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:url("background.png") center/cover no-repeat;
+position:absolute;
+width:100%;
+height:100%;
+background:url("background.png") center/cover no-repeat;
 }
 
 /* button */
 .startBtn{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  padding:16px 40px;
-  font-size:20px;
-  border:none;
-  border-radius:40px;
-  background:linear-gradient(45deg,#ff9ac6,#ffc3e2);
-  color:white;
-  cursor:pointer;
-  box-shadow:0 0 20px #ff8dc2;
-  animation:pulse 2s infinite;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+padding:16px 40px;
+font-size:20px;
+border:none;
+border-radius:40px;
+background:linear-gradient(45deg,#ff9ac6,#ffc3e2);
+color:white;
+cursor:pointer;
+box-shadow:0 0 20px #ff8dc2;
+animation:pulse 2s infinite;
 }
 
 @keyframes pulse{
-  0%{box-shadow:0 0 10px #ff8dc2}
-  50%{box-shadow:0 0 30px #ff8dc2}
-  100%{box-shadow:0 0 10px #ff8dc2}
+0%{box-shadow:0 0 10px #ff8dc2}
+50%{box-shadow:0 0 30px #ff8dc2}
+100%{box-shadow:0 0 10px #ff8dc2}
 }
 
 /* sakura */
 .sakura{
-  position:absolute;
-  font-size:20px;
-  pointer-events:none;
+position:absolute;
+font-size:20px;
+pointer-events:none;
 }
 </style>
 </head>
+
 <body>
 
 <div class="bg"></div>
 
-<button class="startBtn" onclick="startSite()">🐰Намайг дар🐰</button>
+<button class="startBtn" onclick="startSite()">🐰 Намайг дар 🐰</button>
 
-<iframe
-id="music"
-src=""
-allow="autoplay"
-style="position:fixed;width:1px;height:1px;opacity:0;border:0;">
-</iframe>
+<audio id="music" loop>
+<source src="Nightcore - 夢と葉桜  Yume To Hazakura ヲタみん  Wotamin Cover Original song by_ 青木月光  Aoki Gekkoh.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-function createSakura(){
-  let el=document.createElement("div");
-  el.className="sakura";
-  el.innerHTML="🌸";
-  let x=Math.random()*window.innerWidth;
-  let y=-20;
-  let vx=(Math.random()-0.5)*2;
-  let vy=1+Math.random()*1.5;
-  let rot=Math.random()*360;
-  let rotSpeed=(Math.random()-0.5)*4;
-  document.body.appendChild(el);
 
-  function animate(){
-    y+=vy;
-    x+=vx;
-    rot+=rotSpeed;
-    vx+=(Math.random()-0.5)*0.05;
-    el.style.left=x+"px";
-    el.style.top=y+"px";
-    el.style.transform="rotate("+rot+"deg)";
-    if(y<window.innerHeight+40){
-      requestAnimationFrame(animate);
-    } else {
-      el.remove();
-    }
-  }
-  animate();
+function createSakura(){
+
+let el=document.createElement("div");
+el.className="sakura";
+el.innerHTML="🌸";
+
+let x=Math.random()*window.innerWidth;
+let y=-20;
+
+let vx=(Math.random()-0.5)*2;
+let vy=1+Math.random()*1.5;
+
+let rot=Math.random()*360;
+let rotSpeed=(Math.random()-0.5)*4;
+
+document.body.appendChild(el);
+
+function animate(){
+
+y+=vy;
+x+=vx;
+rot+=rotSpeed;
+
+vx+=(Math.random()-0.5)*0.05;
+
+el.style.left=x+"px";
+el.style.top=y+"px";
+el.style.transform="rotate("+rot+"deg)";
+
+if(y<window.innerHeight+40){
+requestAnimationFrame(animate);
 }
+else{
+el.remove();
+}
+
+}
+
+animate();
+
+}
+
 setInterval(createSakura,300);
 
-function startSite(){
-  // music эхлүүлэх
-  const music = document.getElementById("music");
-  music.src = "https://www.youtube.com/embed/xCcQ4BxYq1U?autoplay=1&loop=1&playlist=xCcQ4BxYq1U&controls=0&modestbranding=1&playsinline=1";
-  
-  // fade out animation
-  document.body.style.transition="opacity 1s";
-  document.body.style.opacity="0";
 
-  setTimeout(()=>{
-    window.location.href="letter.html";
-  },1000);
+function startSite(){
+
+document.getElementById("Nightcore - 夢と葉桜  Yume To Hazakura ヲタみん  Wotamin Cover Original song by_ 青木月光  Aoki Gekkoh").play();
+
+document.body.style.transition="opacity 1s";
+document.body.style.opacity="0";
+
+setTimeout(()=>{
+window.location.href="letter.html";
+},1000);
+
 }
+
 </script>
 
 </body>
