@@ -11,7 +11,7 @@ body{
 margin:0;
 height:100vh;
 overflow:hidden;
-background:#000;
+background:black;
 font-family:Georgia,serif;
 }
 
@@ -22,25 +22,6 @@ position:absolute;
 width:100%;
 height:100%;
 background:url("background.png") center/cover no-repeat;
-z-index:0;
-}
-
-/* stars */
-
-.star{
-position:absolute;
-width:3px;
-height:3px;
-background:white;
-border-radius:50%;
-box-shadow:0 0 8px white;
-animation:twinkle 2s infinite;
-}
-
-@keyframes twinkle{
-0%{opacity:.2}
-50%{opacity:1}
-100%{opacity:.2}
 }
 
 /* scene */
@@ -50,8 +31,6 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
-position:relative;
-z-index:2;
 }
 
 /* envelope */
@@ -60,7 +39,6 @@ z-index:2;
 width:420px;
 height:260px;
 position:relative;
-perspective:1000px;
 }
 
 /* base */
@@ -68,24 +46,16 @@ perspective:1000px;
 .base{
 width:100%;
 height:100%;
-
-background:linear-gradient(#ffffff,#f7f7f7);
-
-border-radius:14px;
-
-border:6px solid;
-border-image:linear-gradient(45deg,#ffd6ec,#b7e2ff,#ffd6ec)1;
+background:white;
+border-radius:12px;
 
 display:flex;
 align-items:center;
 justify-content:center;
+
 font-size:22px;
 
-box-shadow:
-0 15px 30px rgba(0,0,0,.4),
-inset 0 3px 8px rgba(255,255,255,.7),
-inset 0 -5px 10px rgba(0,0,0,.08);
-
+box-shadow:0 20px 40px rgba(0,0,0,.6);
 }
 
 /* flap */
@@ -104,12 +74,12 @@ top:0;
 
 transform-origin:top;
 transition:1.5s;
-z-index:2;
 }
 
-/* ⭐ star seal */
+/* star seal */
 
 .seal{
+
 position:absolute;
 
 width:70px;
@@ -118,16 +88,8 @@ height:70px;
 background:#b30000;
 
 clip-path:polygon(
-50% 0%,
-61% 35%,
-98% 35%,
-68% 57%,
-79% 91%,
-50% 70%,
-21% 91%,
-32% 57%,
-2% 35%,
-39% 35%
+50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,
+50% 70%,21% 91%,32% 57%,2% 35%,39% 35%
 );
 
 top:90px;
@@ -139,118 +101,42 @@ align-items:center;
 justify-content:center;
 
 color:white;
-font-size:22px;
+font-size:20px;
 
 cursor:pointer;
 
-box-shadow:
-0 0 10px #ff6b6b,
-0 0 20px rgba(0,0,0,.6);
-
-z-index:4;
-}
-
-/* particle */
-
-.particle{
-position:absolute;
-color:#fff;
-font-size:10px;
-pointer-events:none;
-animation:particleFloat 2s linear forwards;
-}
-
-@keyframes particleFloat{
-
-0%{
-opacity:1;
-transform:translateY(0) scale(1);
-}
-
-100%{
-opacity:0;
-transform:translateY(-60px) scale(0);
-}
+box-shadow:0 0 15px #ff6b6b;
 
 }
 
-/* sparkle burst */
-
-.sparkle{
-position:absolute;
-color:#fff;
-font-size:14px;
-pointer-events:none;
-animation:spark 1s forwards;
-}
-
-@keyframes spark{
-
-0%{
-transform:scale(1);
-opacity:1;
-}
-
-100%{
-transform:translateY(-40px) scale(0);
-opacity:0;
-}
-
-}
-
-/* wax melt */
-
-.melt{
-animation:melt 1s forwards;
-}
-
-@keyframes melt{
-
-0%{
-transform:translateX(-50%) scale(1);
-}
-
-100%{
-transform:translateX(-50%) scale(0.2);
-opacity:0;
-}
-
-}
-
-/* 📜 real paper */
+/* letter */
 
 .letter{
 
 position:absolute;
 width:420px;
 
-background:
-url("https://www.transparenttextures.com/patterns/paper-fibers.png"),
-#eaf6ff;
+background:#eaf6ff;
 
-color:black;
-
-padding:32px;
+padding:30px;
 
 border-radius:8px;
 
-box-shadow:
-0 30px 50px rgba(0,0,0,.6),
-inset 0 2px 6px rgba(255,255,255,.7),
-inset 0 -2px 6px rgba(0,0,0,.1);
+box-shadow:0 20px 40px rgba(0,0,0,.6);
 
 transform-origin:top;
 transform:scaleY(0);
 
 opacity:0;
 
-z-index:3;
 }
 
-/* letter rise */
+/* show letter */
 
 .showLetter{
+
 animation:letterRise 2s forwards;
+
 }
 
 @keyframes letterRise{
@@ -260,25 +146,11 @@ transform:translateY(0) scaleY(0);
 opacity:0;
 }
 
-60%{
-transform:translateY(-260px) scaleY(.4);
-opacity:1;
-}
-
 100%{
-transform:translateY(-260px) scaleY(1);
+transform:translateY(-250px) scaleY(1);
 opacity:1;
 }
 
-}
-
-/* sakura */
-
-.sakura{
-position:absolute;
-font-size:18px;
-pointer-events:none;
-z-index:5;
 }
 
 </style>
@@ -294,165 +166,34 @@ z-index:5;
 
 <div class="flap"></div>
 
-<div class="base">
-Оюунтүлхүүрт 💌
-</div>
+<div class="base">🐰</div>
 
-<div class="seal" id="seal">★</div>
+<div class="seal" onclick="openEnvelope()">★</div>
 
 <div class="letter" id="letter">
+
 <span id="text"></span>
+
 </div>
 
 </div>
 </div>
 
+<!-- music continue -->
+
+<iframe
+src="https://www.youtube.com/embed/xCcQ4BxYq1U?autoplay=1&loop=1&playlist=xCcQ4BxYq1U&controls=0&modestbranding=1&playsinline=1"
+allow="autoplay"
+style="position:fixed;width:1px;height:1px;opacity:0;border:0;">
+</iframe>
 
 <script>
 
-/* stars */
+/* open envelope */
 
-for(let i=0;i<120;i++){
+function openEnvelope(){
 
-let s=document.createElement("div");
-
-s.className="star";
-
-s.style.left=Math.random()*100+"vw";
-s.style.top=Math.random()*100+"vh";
-
-document.body.appendChild(s);
-
-}
-
-
-/* seal particle glow */
-
-function sealParticles(){
-
-const seal=document.getElementById("seal");
-const rect=seal.getBoundingClientRect();
-
-let p=document.createElement("div");
-
-p.className="particle";
-p.innerHTML="✨";
-
-p.style.left=(rect.left+rect.width/2)+"px";
-p.style.top=(rect.top)+"px";
-
-document.body.appendChild(p);
-
-setTimeout(()=>p.remove(),2000);
-
-}
-
-setInterval(sealParticles,300);
-
-
-/* sparkle burst */
-
-function sparkleBurst(x,y){
-
-for(let i=0;i<25;i++){
-
-let sp=document.createElement("div");
-
-sp.className="sparkle";
-sp.innerHTML="✨";
-
-sp.style.left=x+"px";
-sp.style.top=y+"px";
-
-document.body.appendChild(sp);
-
-setTimeout(()=>sp.remove(),1000);
-
-}
-
-}
-
-
-/* sakura physics */
-
-function createSakura(){
-
-let el=document.createElement("div");
-el.className="sakura";
-el.innerHTML="🌸";
-
-let x=Math.random()*window.innerWidth;
-let y=-20;
-
-let vy=1+Math.random()*1.5;
-let vx=(Math.random()-.5)*1.5;
-
-let rot=Math.random()*360;
-let rotSpeed=(Math.random()-.5)*3;
-
-document.body.appendChild(el);
-
-const letter=document.getElementById("letter");
-
-function animate(){
-
-y+=vy;
-x+=vx;
-
-rot+=rotSpeed;
-
-vx+=(Math.random()-.5)*0.03;
-
-el.style.left=x+"px";
-el.style.top=y+"px";
-el.style.transform="rotate("+rot+"deg)";
-
-let rect=letter.getBoundingClientRect();
-
-/* land letter */
-
-if(
-y>=rect.top &&
-x>rect.left &&
-x<rect.right
-){
-el.style.top=(rect.top-5)+"px";
-return;
-}
-
-/* land ground */
-
-if(y>=window.innerHeight-10){
-
-el.style.top=(window.innerHeight-10)+"px";
-return;
-
-}
-
-requestAnimationFrame(animate);
-
-}
-
-animate();
-
-}
-
-setInterval(createSakura,260);
-
-
-/* envelope open */
-
-const seal=document.getElementById("seal");
-
-seal.onclick=(e)=>{
-
-sparkleBurst(e.clientX,e.clientY);
-
-seal.classList.add("melt");
-
-setTimeout(()=>{
-
-document.getElementById("env").classList.add("open");
+document.querySelector(".flap").style.transform="rotateX(-180deg)";
 
 let letter=document.getElementById("letter");
 
@@ -460,49 +201,39 @@ setTimeout(()=>{
 
 letter.classList.add("showLetter");
 
-startTyping();
+typing();
 
 },800);
 
-},900);
-
-};
+}
 
 
-/* typing animation */
+/* typing */
 
 const message=`Юуны өмнө чамд 3 сарын 8-ны баярын мэнд хүргэе.
 
 Сүүлд би чамд муухай аашилж,
-чамайг гомдоосон байж магадгүй.
+чамайг гомдоосон.
 Тэр бүхний төлөө үнэхээр уучлаарай.
-
 Чамайг гомдоох гэж бодоогүй юм шүү
-
 Учир нь чи миний хувьд
 маш үнэ цэнэтэй хүн.
-
 Чиний инээмсэглэл
 чиний зан ааш
 чиний надад өгдөг тэр дулаан мэдрэмж
-
 энэ бүхэн миний хувьд маш чухал.
-
 Заримдаа хүн
 өөрийн хамгийн дотны ойр хүндээ л
 тэнэг зан гаргачихдаг юм шиг байна.
-
 Гэхдээ үнэндээ
 би чамайг гомдоохыг огт хүсээгүй.
-
 Чи миний амьдралд орж ирсэнд баярладаг аа.
-
 Чамд дахин нэг удаа
 3 сарын 8-ны баярын мэнд хүргэе 🌸`;
 
 let i=0;
 
-function startTyping(){
+function typing(){
 
 let target=document.getElementById("text");
 
@@ -526,16 +257,5 @@ type();
 
 </script>
 
-
-<!-- hidden music -->
-
-<iframe
-src="https://www.youtube.com/embed/xCcQ4BxYq1U?autoplay=1&loop=1&playlist=xCcQ4BxYq1U&controls=0&modestbranding=1&playsinline=1"
-allow="autoplay"
-style="position:fixed;width:1px;height:1px;opacity:0;border:0;">
-</iframe>
-
 </body>
 </html>
-
-
