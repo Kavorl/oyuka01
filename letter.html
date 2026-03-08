@@ -1,28 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="mn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Оюунтүлхүүрт</title>
+<title>Захиа</title>
 
 <style>
 
 body{
 margin:0;
 height:100vh;
-font-family:Georgia, serif;
 overflow:hidden;
 background:#000;
+font-family:Georgia,serif;
 }
 
-/* background image */
-.background{
+/* background */
+
+.bg{
 position:absolute;
 width:100%;
 height:100%;
-background:url("background.png") center/cover no-repeat;
-z-index:0;
+background:url("background.jpg") center/cover no-repeat;
 }
 
 /* stars */
@@ -33,32 +32,17 @@ width:4px;
 height:4px;
 background:white;
 border-radius:50%;
-opacity:0.9;
 box-shadow:0 0 10px white,0 0 20px white;
 animation:twinkle 1.5s infinite;
 }
 
 @keyframes twinkle{
-0%{opacity:0.2;transform:scale(0.6)}
-50%{opacity:1;transform:scale(1.5)}
-100%{opacity:0.2;transform:scale(0.6)}
+0%{opacity:.2}
+50%{opacity:1}
+100%{opacity:.2}
 }
 
-/* sakura */
-
-.sakura{
-position:absolute;
-font-size:18px;
-animation:fall linear forwards;
-}
-
-@keyframes fall{
-0%{transform:translateY(-10vh) rotate(0);opacity:0}
-80%{opacity:1}
-100%{transform:translateY(60vh) rotate(360deg)}
-}
-
-/* center scene */
+/* envelope */
 
 .scene{
 display:flex;
@@ -69,114 +53,125 @@ position:relative;
 z-index:3;
 }
 
-/* envelope */
-
 .envelope{
+
 width:420px;
 height:260px;
 position:relative;
-}
 
-/* envelope base */
+}
 
 .base{
-position:absolute;
+
 width:100%;
 height:100%;
+
 background:white;
-border-radius:12px;
-box-shadow:0 12px 25px rgba(0,0,0,0.5);
+
+border-radius:14px;
+
+/* decorative border */
+
+border:6px solid;
+
+border-image:linear-gradient(
+45deg,
+#ffb6d9,
+#ffd6ec,
+#b7e2ff,
+#ffd6ec
+)1;
 
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 
 font-size:22px;
-color:black;
 
-/* flower border */
-
-border:6px solid transparent;
-background-image:
-linear-gradient(white,white),
-url("https://i.imgur.com/7s4YF9B.png");
-background-origin:border-box;
-background-clip:content-box,border-box;
 }
 
-/* triangle flap */
-
 .flap{
+
 position:absolute;
+
 width:0;
 height:0;
+
 border-left:210px solid transparent;
 border-right:210px solid transparent;
 border-top:150px solid white;
+
 top:0;
-left:0;
 
 transform-origin:top;
+
 transition:1s;
+
 }
 
-/* wax seal */
+/* seal */
 
 .seal{
+
 position:absolute;
-width:65px;
-height:65px;
-background:#c91d1d;
+
+width:60px;
+height:60px;
+
+background:#c41d1d;
+
 border-radius:50%;
 
 top:95px;
 left:50%;
+
 transform:translateX(-50%);
 
-box-shadow:0 6px 12px rgba(0,0,0,0.4);
-
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 
 color:white;
+
 font-size:22px;
-font-weight:bold;
 
 cursor:pointer;
+
+box-shadow:0 0 12px black;
+
 }
 
 /* letter */
 
 .letter{
+
 position:absolute;
 
-width:90%;
-max-width:420px;
+width:420px;
 
 max-height:60vh;
-overflow-y:auto;
 
-background:white;
+overflow:auto;
+
+background:#eaf6ff; /* бүдэг цэнхэр */
+
 color:black;
 
 padding:30px;
 
 border-radius:10px;
 
-box-shadow:0 20px 40px rgba(0,0,0,0.6);
+box-shadow:0 20px 40px rgba(0,0,0,.6);
 
 transform-origin:top;
+
 transform:scaleY(0);
+
 opacity:0;
 
-transition:1s ease;
+transition:1s;
 
-white-space:pre-line;
-text-align:center;
 }
-
-/* open states */
 
 .open .flap{
 transform:rotateX(-180deg);
@@ -187,12 +182,21 @@ transform:translateY(-220px) scaleY(1);
 opacity:1;
 }
 
+/* sakura */
+
+.sakura{
+position:absolute;
+font-size:18px;
+pointer-events:none;
+z-index:4;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="background"></div>
+<div class="bg"></div>
 
 <div class="scene">
 
@@ -206,8 +210,31 @@ opacity:1;
 
 <div class="seal" onclick="openEnvelope()">❤</div>
 
-<div class="letter">
-<div id="typing"></div>
+<div class="letter" id="letter">
+
+Сайн уу 🌸
+
+Энэ захиаг чамд зориулж бичлээ.
+
+Чи миний хувьд
+маш онцгой хүн.
+
+Чиний инээмсэглэл,
+чиний зан,
+чиний дулаан мэдрэмж
+надад маш үнэ цэнтэй.
+
+Хэрвээ би чамайг
+хэзээ нэгэн цагт
+гомдоосон бол
+үнэхээр уучлаарай.
+
+Чамд аз жаргал
+инээмсэглэл
+бас
+хамгийн сайхан бүхнийг
+хүсье 🌸
+
 </div>
 
 </div>
@@ -219,127 +246,86 @@ opacity:1;
 /* stars */
 
 for(let i=0;i<120;i++){
-let star=document.createElement("div")
-star.className="star"
-star.style.left=Math.random()*100+"vw"
-star.style.top=Math.random()*100+"vh"
-document.body.appendChild(star)
+let s=document.createElement("div")
+s.className="star"
+s.style.left=Math.random()*100+"vw"
+s.style.top=Math.random()*100+"vh"
+document.body.appendChild(s)
 }
 
-/* sakura */
+/* sakura physics */
 
-function sakura(){
+function createSakura(){
 
 let el=document.createElement("div")
-
 el.className="sakura"
 el.innerHTML="🌸"
 
-el.style.left=Math.random()*100+"vw"
-el.style.top="-5vh"
+let x=Math.random()*window.innerWidth
+let y=-20
 
-el.style.animationDuration=5+Math.random()*5+"s"
+let vy=1+Math.random()*1.5
+let vx=(Math.random()-.5)*1.4
+
+let rot=Math.random()*360
+let rotSpeed=(Math.random()-.5)*2
 
 document.body.appendChild(el)
 
-setTimeout(()=>{
-el.style.animation="none"
-el.style.transform="translateY(60vh)"
-},6000)
+const letter=document.getElementById("letter")
+
+function animate(){
+
+y+=vy
+x+=vx
+
+rot+=rotSpeed
+vx+=(Math.random()-.5)*.05
+
+el.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg)`
+
+/* check landing on letter */
+
+let rect=letter.getBoundingClientRect()
+
+if(y>rect.top && x>rect.left && x<rect.right){
+
+el.style.transform=`translate(${x}px,${rect.top}px) rotate(${rot}deg)`
+
+return
 
 }
 
-setInterval(sakura,300)
+if(y<window.innerHeight+40){
 
+requestAnimationFrame(animate)
 
-/* open envelope */
+}else{
 
-let opened=false
+el.remove()
+
+}
+
+}
+
+animate()
+
+}
+
+setInterval(createSakura,300)
 
 function openEnvelope(){
 
-const env=document.getElementById("env")
-
-env.classList.add("open")
-
-if(!opened){
-startTyping()
-opened=true
-}
-
-}
-
-
-/* typing text */
-
-const message=`Сайн уу Оюунтүлхүүрээ 🌸
-
-Юуны өмнө
-3-р сарын 8-ны баярын мэнд хүргэе.
-
-Сүүлийн үед
-би чамд муухай аашилж
-чамайг гомдоосон байж магадгүй.
-
-Тэр бүхний төлөө
-үнэхээр уучлаарай.
-
-Чиний инээмсэглэл
-чиний зан
-чиний надад өгдөг дулаан мэдрэмж
-надад маш үнэ цэнтэй.
-
-Заримдаа хүн
-хамгийн хайртай хүнтэйгээ
-тэнэг зан гаргачихдаг юм шиг.
-
-Гэхдээ би
-чамайг гомдоохыг
-огт хүсээгүй.
-
-Хэрвээ чи намайг уучилж чадвал
-би илүү сайн хүн байж
-чамайг илүү их баярлуулахыг хүсэж байна.
-
-Чи миний амьдралд байгаад
-баярлалаа.
-
-Баярын мэнд хүргэе 🌸`
-
-let i=0
-
-function startTyping(){
-
-let speed=40
-
-function type(){
-
-if(i<message.length){
-
-document.getElementById("typing").innerHTML+=message.charAt(i)
-
-i++
-
-setTimeout(type,speed)
-
-}
-
-}
-
-type()
+document.getElementById("env").classList.add("open")
 
 }
 
 </script>
 
-<!-- youtube music -->
-
 <iframe width="200" height="113"
-style="position:fixed;bottom:10px;right:10px;border:0;border-radius:6px;z-index:10"
+style="position:fixed;bottom:10px;right:10px;border:0;border-radius:6px"
 src="https://www.youtube.com/embed/4WwrTlK8VlY?autoplay=1&loop=1&playlist=4WwrTlK8VlY"
-allow="autoplay">
-</iframe>
+allow="autoplay"></iframe>
 
 </body>
 </html>
-```
